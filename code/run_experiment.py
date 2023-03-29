@@ -165,7 +165,7 @@ for window, (X_mal, X_easy, X_hist, X_induct) in enumerate(zip(
 # Write results #
 #################
 
-fn = f'results_{args.model}_{args.seed}.json.gz'
+fn = f'results_{args.seed}.json.gz'
 if args.output_dir is None:
 	fp = fn
 else:

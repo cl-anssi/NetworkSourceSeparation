@@ -16,7 +16,7 @@ def make_parser():
 		'--output_dir',
 		default=None,
 		help='Directory in which the results should be written. '
-		     'If None, the input directory is used.'
+		     'If None, the current working directory is used.'
 	)
 	parser.add_argument(
 		'--n_estimators',
