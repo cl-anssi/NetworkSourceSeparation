@@ -68,15 +68,16 @@ def read_snmf_results(dir_path, num_interp_points=10000, jobs=10):
             for k in roc.keys():
                 y_true = np.array(dat[k]['labels'])
                 y_pred = np.array(dat[k]['scores'])
-                fpr, tpr, _ = met.roc_curve(y_true, y_pred)
-                ys = np.interp(xs, fpr, tpr)
-                roc[k] = ys
                 if k == 'malicious':
                     ndcg = met.ndcg_score(
                         -y_true[np.newaxis, :] + 1,
                         -y_pred[np.newaxis, :],
                         k=len(y_true) // 100
                     )
+                    y_true, y_pred = -y_true, -y_pred
+                fpr, tpr, _ = met.roc_curve(y_true, y_pred)
+                ys = np.interp(xs, fpr, tpr)
+                roc[k] = ys
             val_score = dat['val_score']
         return (dim, n_est, seed), (roc, ndcg, val_score)
     tmp = Parallel(n_jobs=jobs)(
